@@ -3,24 +3,19 @@
 n = int(input("Введите количество элементов: "))
 
 
-def get_fibo(n):
+def get_fibo(n, neg=False):
     n0 = 0
     n1 = 1
     result = []
     for i in range(n):
         result.append(n1)
-        n0, n1 = n1, n0 + n1
+        if neg:
+            n0, n1 = n1, n0 - n1
+        else:
+            n0, n1 = n1, n0 + n1
+    if neg:
+        result = result[::-1]
     return result
 
 
-def get_negafibo(n):
-    n0 = 0
-    n1 = 1
-    result = []
-    for i in range(n):
-        result.append(n1)
-        n0, n1 = n1, n0 - n1
-    return result
-
-
-print(get_negafibo(n))
+print(get_fibo(n, neg=True) + [0] + get_fibo(n))
