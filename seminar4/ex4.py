@@ -16,17 +16,17 @@ def get_string(d):
         if el > 1:
             if d[el] > 1:
                 result.append(f"{d[el]}x^{el}")
-            elif filt_d[el] == 1:
+            elif d[el] == 1:
                 result.append(f"x^{el}")
         elif el == 1:
-            if filt_d[el] > 1:
+            if d[el] > 1:
                 result.append(f"{d[el]}x")
             elif d[el] == 1:
                 result.append("x")
         else:
             result.append(str(d[el]))
-    return result
+    return " + ".join(result) + " = 0"
 
 
 with open("output_4.txt", "w", encoding="utf-8") as file:
-    file.write(" + ".join(get_string(filt_d)) + " = 0")
+    file.write(get_string(filt_d))
