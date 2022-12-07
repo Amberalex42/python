@@ -32,17 +32,15 @@ def encode(path):
                 uniq_seq = ""
             repeat_flag = True
             repeat_seq += prev
-            prev = el
         else:
             if repeat_flag:
                 repeat_flag = False
                 repeat_seq += prev
-                prev = el
                 result += str(len(repeat_seq)) + repeat_seq[0]
                 repeat_seq = ""
             else:
                 uniq_seq += prev
-                prev = el
+        prev = el
 
     if input_data[-1] == input_data[-2]:
         repeat_seq += input_data[-1]
@@ -52,19 +50,40 @@ def encode(path):
         result += str(len(repeat_seq)) + repeat_seq[0]
     if uniq_seq:
         result += str(-len(uniq_seq)) + uniq_seq
-    return result
+    with open("output6_1.txt", "w", encoding="utf-8") as file:
+        file.write(result)
 
 
-    # Проверка последнего символа и добавление к результату
-    # if input_data[-1] == input_data[-2]:
-    #     repeat_seq += input_data[-1]
-    # else:
-    #     uniq_seq += input_data[-1]
-    # if uniq_seq:
-    #     result += str(-len(uniq_seq)) + uniq_seq
-    # if repeat_seq:
-    #     result += str(len(repeat_seq)) + repeat_seq[0]
-    return result
+def decode(path):
+    with open(path, "r", encoding="utf-8") as file:
+        input_data = list(file.readline().strip())
+
+    # Версия без отрицательных значений
+    # result = ""
+    # tmp = ""
+    # for el in input_data:
+    #     if el.isdigit():
+    #         tmp += el
+    #     else:
+    #         if tmp:
+    #             result += el * int(tmp)
+    #         tmp = ""
+    # return result
+
+    result = ""
+    tmp = ""
+    for el in input_data:
+        if el.isdigit() or el == "-":
+            tmp += el
+        else:
+            if tmp and int(tmp) > 0:
+                result += el * int(tmp)
+            else:
+                result += el
+            tmp = ""
+    with open("output6_2.txt", "w", encoding="utf-8") as file:
+        file.write(result)
 
 
 print(encode("input6_1.txt"))
+print(decode("input6_2.txt"))
