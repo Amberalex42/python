@@ -30,14 +30,21 @@ def get_info_from_db(con):
     return cur.execute('''SELECT first_name, last_name, position, salary, bonus FROM staff;''')
 
 
+def get_man_by_last_name(con, last_name):
+    cur = con.cursor()
+    return cur.execute(f'''SELECT id, first_name, last_name, position, salary, bonus 
+                            FROM staff 
+                            WHERE last_name = "{last_name}";''')
+
+
 def get_total_salary(con):
     cur = con.cursor()
     return cur.execute('''SELECT SUM(salary) as total FROM staff''')
 
 
-def update_info_in_db(con, last_name, new_salary):
+def update_info_in_db(con, man_id, new_salary):
     cur = con.cursor()
-    cur.execute(f'''UPDATE staff SET salary = {new_salary} WHERE last_name = "{last_name}"''')
+    cur.execute(f'''UPDATE staff SET salary = {new_salary} WHERE id = "{man_id}"''')
     con.commit()
 
 

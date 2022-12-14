@@ -26,5 +26,9 @@ def get_seek_position():
     return input("Введите должность для поиска: ")
 
 
+def get_seeking_id():
+    return int(input("Введите id интересующего вас сотрудника: "))
+
+
 def get_new_salary():
     return float(input("Введите новую зарплату: "))

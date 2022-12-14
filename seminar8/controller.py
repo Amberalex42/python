@@ -28,8 +28,17 @@ def menu():
                     model.print_el(el)
         elif user_ans == '5':
             seeking_man = view.get_seek_sname()
+            res_all = model.get_man_by_last_name(con, seeking_man)
+            result = res_all.fetchall()
+            if len(result) > 1:
+                for el in result:
+                    man_id, first_name, last_name, position, salary, bonus = el
+                    print(f"Id: {man_id}- {first_name} {last_name}, {position}. Зарплата: {round(salary, 2)} руб., премия: {bonus}%.")
+                seeking_id = view.get_seeking_id()
+            else:
+                seeking_id = result[0][0]
             new_salary = view.get_new_salary()
-            model.update_info_in_db(con, seeking_man, new_salary)
+            model.update_info_in_db(con, seeking_id, new_salary)
         elif user_ans == '6':
             res_all = model.get_total_salary(con)
             print(f"Общий фонд заработной платы составляет: {res_all.fetchone()[0]} руб.")
